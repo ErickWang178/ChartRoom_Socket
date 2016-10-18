@@ -1,5 +1,5 @@
 # ChartRoom_Socket
-本项目是用于练习socket编程的应用。
+本项目是用于练习WinSocket编程的应用。
 
 主要功能：
   1.实现了client端和server端
