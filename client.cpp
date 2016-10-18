@@ -3,22 +3,22 @@
 #include "helper.h"
 
 Client::Client(){
-	cout << "***************ClientÒÑÆô¶¯**************\n";
+	cout << "***************Clientå·²å¯åŠ¨**************\n";
 	SOCKET s = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
 	if (s == SOCKET_ERROR){
-		Msg::exitPrompt("´´½¨Ì×½Ó×ÖÊ§°Ü",WSAGetLastError());
+		Msg::exitPrompt("åˆ›å»ºå¥—æ¥å­—å¤±è´¥",WSAGetLastError());
 	}
-	 this->clientSocket = s;
+	 this->clientSocket = s;  
 }
 
 
 void Client::getConnect(char *serverIP,short serverPort){
 	if(serverIP == NULL) return;
 
-	cout << "Á¬½Ó·şÎñÆ÷£º" << serverIP << ":" << serverPort << endl;
+	cout << "è¿æ¥æœåŠ¡å™¨ï¼š" << serverIP << ":" << serverPort << endl;
 
 	memset(&(this->serverIP),0,sizeof(struct in_addr));
-	this->serverIP.S_un.S_addr = inet_addr(serverIP); //½«µã·ÖÊ®½øÖÆIP×ªÎªÍøÂçIP
+	this->serverIP.S_un.S_addr = inet_addr(serverIP); //å°†ç‚¹åˆ†åè¿›åˆ¶IPè½¬ä¸ºç½‘ç»œIP
 
 	memset(&(serverSocketAddress),0,sizeof(struct sockaddr_in));
 	serverSocketAddress.sin_family = AF_INET;
@@ -26,10 +26,10 @@ void Client::getConnect(char *serverIP,short serverPort){
 	serverSocketAddress.sin_addr.S_un.S_addr = inet_addr(serverIP);
 
 	while(SOCKET_ERROR == connect(clientSocket,(sockaddr *)&serverSocketAddress,sizeof(struct sockaddr_in))){
-		Msg::printPrompt("Óë·şÎñÆ÷½¨Á¢Á¬½ÓÖĞ......");
+		Msg::printPrompt("ä¸æœåŠ¡å™¨å»ºç«‹è¿æ¥ä¸­......");
 		Sleep(1000);
 	}
-	Msg::printPrompt("Óë·şÎñÆ÷Á¬½Ó³É¹¦......");
+	Msg::printPrompt("ä¸æœåŠ¡å™¨è¿æ¥æˆåŠŸ......");
 	return ;
 }
 
@@ -39,23 +39,23 @@ void Client::recvMsg(){
  
 	bytes = recv(clientSocket,buf,sizeof(buf),0);
 	if (bytes == SOCKET_ERROR){
-		Msg::exitPrompt("Êı¾İ½ÓÊÜ´íÎó",WSAGetLastError());
+		Msg::exitPrompt("æ•°æ®æ¥å—é”™è¯¯",WSAGetLastError());
 	}
 
-	cout << "·şÎñÆ÷Ëµ£º"<< Helper::getDate() << "    " << buf << endl;
+	cout << "æœåŠ¡å™¨è¯´ï¼š"<< Helper::getDate() << "    " << buf << endl;
  
 }
 
 void Client::sendMsg(){
 	//char buf[1024];
  
-	cout << "ÎÒËµ£º";
+	cout << "æˆ‘è¯´ï¼š";
 	cin >> buf;
 	if (strlen(buf) <= 0 || buf == " "){
-		Msg::printPrompt("·¢ËÍÊı¾İ²»ÄÜÎª¿Õ");
+		Msg::printPrompt("å‘é€æ•°æ®ä¸èƒ½ä¸ºç©º");
 	}
 	if (send(clientSocket,buf,sizeof(buf),0) == SOCKET_ERROR){
-		Msg::exitPrompt("Êı¾İ·¢ËÍÊ§°Ü",WSAGetLastError());
+		Msg::exitPrompt("æ•°æ®å‘é€å¤±è´¥",WSAGetLastError());
 	}
 	 
 }
