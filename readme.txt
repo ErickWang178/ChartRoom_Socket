@@ -1,0 +1,2 @@
+本程序用于实现Client-Server 模式的聊天室
+1.首先实现Client与Server间的通信
